@@ -1,0 +1,518 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap");
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #ffffff;
+    font-size: 16px;
+    font-family: "Poppins", sans-serif;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+li {
+    list-style-type: none;
+}
+
+/* warning message */
+
+.warnig-message{
+   color:red;
+   background-color:#FADBD8;
+   padding:5px;
+   margin-top:10px;
+}
+
+/* success message */
+
+.success-message{
+   position: absolute;
+   z-index: 1;
+   top: 95px;
+   right: 25px;
+   min-width: 125px;
+   color:#ffffff;
+   background-color:#099eda;
+   padding:10px;
+   border-radius: 5px;
+   transform: translateX(350px);
+   opacity: 0;
+   transition: 250ms ease;
+}
+
+.success-message-active{
+   transform: translateX(0px);
+   opacity: 1;
+}
+
+/* results message */
+
+.results-message{
+   color:#17b2f0;
+   text-align: center;
+   padding:5px;
+   font-size: 1.5rem;
+   font-weight: 600;
+}
+
+/* no results message */
+
+.no-results-message{
+   color:#fd0e06;
+   text-align: center;
+   padding-top:25px;
+   padding-bottom:5px;
+   font-size: 1.5rem;
+   font-weight: 600;
+}
+
+/* buttons */
+
+.btn-order{
+   border: none;
+   outline: none;
+   width: 110px;
+   height: 30px;
+   color: #ffffff;
+   background-color: #099eda;
+   font-size: 1rem;
+   cursor: pointer;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.btn-submit{
+   margin:15px 0px;
+   border: none;
+   outline: none;
+   background-color: #099eda;
+   color: #ffffff;
+   height: 40px;
+   width:130px;
+   border-radius: 5px;
+   cursor:pointer;
+   font-size: 1rem;
+}
+
+.header {
+   background-color: #ffffff;
+   height: 85px;
+   width: 100%;
+}
+
+.nav {
+   height: 100%;
+}
+
+.sidebar-nav{
+   position: absolute;
+   z-index: 2;
+   top: 0px;
+   right: 0px;
+   width: 0px; 
+   height: 0px;
+   background-color: #eb4c0e;
+   display: flex;
+   opacity: 0;
+   transform: translateX(250px);
+   transition: 250ms ease;
+   justify-content: center;
+}
+
+.sidebar-nav-active{
+   height: 100%;
+   width: 220px;
+   opacity: 1;
+   transform: translateX(0px);
+}
+
+.sidebar-nav ul{
+   margin-top: 70px;
+}
+
+.sidebar-nav ul li{
+   margin: 7.5px;
+}
+
+.sidebar-nav ul a{
+   font-size: 1.2rem;
+   color: #ffffff;
+}
+
+.close-button{
+   position: absolute;
+   top: 5px;
+   left: 5px;
+   border: none;
+   outline: none;
+   width: 35px;
+   height: 35px;
+   margin: 0;
+   color: #ffffff;
+   background-color: #eb4c0e;
+   font-size: 1.75rem;
+   cursor: pointer;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+/* flexbox row container */
+
+.container-flex-row{
+   height: 100%;
+   position: relative;
+   display: flex;
+   flex-direction: row;
+   justify-content:space-around;
+   align-items: center;
+}
+
+/* flexbox column container */
+
+.container-flex-column{
+   margin: 15px 0;
+   position: relative;
+   display: flex;
+   flex-direction: column;
+}
+
+.nav ul {
+   height: 100%;
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+   gap: 25px;
+}
+
+.nav ul a {
+   color: #eb4c0e;
+   font-weight: 500;
+}
+
+#icon-bars{
+   display: none;
+   font-size: 1.35rem;
+   padding-top:1.5px;
+   cursor: pointer;
+}
+
+.search-food{
+   /* border: 1px solid red; */
+   position: relative;
+   min-height: 43vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.background{
+   position: absolute;
+   height: 100%;
+   width: 100%;
+   background-color: #0edceb;
+   background-image: url('https://images.pexels.com/photos/2725744/pexels-photo-2725744.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: cover;
+}
+
+.container-input-search{
+   position: relative;
+   width: 45vw;
+}
+
+.input,
+.input-search{
+   outline: none;
+   border: none;
+   border-radius: 5px;
+   width: 100%;
+   height: 38px;
+   padding: 5px 7.5px;
+   font-size: 1rem;
+   box-shadow: 0px 0.25px 1px 1px #dbdbdb;
+}
+
+.input-search + button{
+   position: absolute;
+   bottom:-1px;
+   right:-1px;
+   border-radius: 3px;
+   border: none;
+   outline: none;
+   background-color: #dbdbdb;
+   height: 40px;
+   width: 45px;
+   cursor: pointer;
+}
+
+.input-search + button:hover{
+   background-color: #c0c0c0;
+}
+
+.input{
+   width: 100%;
+}
+
+.container-categories{
+   background-color: #ffffff;
+}
+
+.categories{
+   max-width: 95%;
+   margin: 30px auto;
+}
+
+.categories-options{
+   display: flex;
+   flex-wrap: wrap;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+   gap: 25px;
+}
+
+.category-card{
+   position: relative;
+   border-radius: 7.5px;
+   width: 300px;
+   height: 370px;
+   cursor: pointer;
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: cover;
+}
+
+.category-card > p {
+   position: absolute;
+   bottom: 5%;
+   left: 50%;
+   transform: translate(75%, 0);
+   visibility: hidden;
+   opacity: 0;
+   color: #ffffff;
+   font-size: 1.75rem;
+   cursor: text;
+   transition: 250ms ease;
+}
+
+.category-card:hover p{
+   transform: translate(-50%, 0);
+   visibility: visible;
+   opacity: 1;
+}
+
+.container-foods{
+   background-color: #ececec;
+   min-height: 250px;
+}
+
+.foods{
+   position: relative;
+   max-width: 95%;
+   margin: 0px auto;
+
+}
+
+.foods > h2{
+   text-align: center;
+   padding: 25px;
+}
+
+.foods-options{
+   display: flex;
+   flex-wrap: wrap;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+
+}
+
+.food-card{
+   background-color: #ffffff;
+   min-width: 450px;
+   min-height: 150px;
+   border-radius: 5px;
+   margin: 30px 20px;
+   padding: 20px 0px;
+   display: flex;
+   flex-wrap: wrap;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+   gap: 30px;
+}
+
+.food-image{
+   width: 175px;
+   height: 175px;
+   border-radius: 5px;
+   margin-left: 20px;
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: cover;
+}
+
+.food-info-order{
+   display: flex;
+   flex-wrap: wrap;
+   flex-direction: column;
+   justify-content: center;
+   gap: 5px;
+}
+
+.food-info-order > .food-description{
+   word-wrap: break-word;
+}
+
+.contact-container,
+.order-container{
+   /* border: 1px solid red; */
+   max-width: 80%;
+   margin: 0 auto;
+}
+
+.textarea-message{
+   resize: none;
+   outline: none;
+   border: none;
+   width: 100%;
+   height: 70px;
+   border-radius: 5px;
+   padding: 5px;
+   font-size: 1.05rem;
+   box-shadow: 0px 0.25px 1px 1px #dbdbdb;
+}
+
+.container-food-info{
+   height: 100%;
+   position: relative;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   gap: 50px;
+}
+
+.footer{
+   min-height: 75px;
+   background-color: #ffffff;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+/* Madia Queries */
+
+@media screen and (max-width:1032px){
+
+
+   .food-card{
+      min-height: 200px;
+      min-width:65vw; 
+
+   }
+
+   .food-image{
+      width: 305px;
+   }
+
+   .food-info-order{
+      gap: 20px;
+   }
+}
+
+@media screen and (max-width:900px){
+   .food-image{
+      width: 250px;
+   }
+}
+
+@media screen and (max-width:750px) {
+   .nav ul{
+      display: none;
+   }
+   #icon-bars{
+      display: inline-block;
+   }
+   .nav > .container-flex-row > .logo {
+      margin-right: 30vw;
+   }
+
+   .food-card{
+      min-width:80vw; 
+   }
+
+}
+
+@media screen and (max-width:620px){
+
+   .container-input-search{
+      width: 60vw;
+   }
+
+   .food-card{
+      min-width:90vw; 
+   }
+
+   .food-image{
+      width: 210px;
+   }
+}
+
+@media screen and (max-width:500px){
+   .food-card{
+      min-width:70vw;
+      min-height: 310px;
+      flex-direction: column;
+
+   }
+
+   .food-info-order{
+      align-items: center;
+   }
+}
+
+@media screen and (max-width:450px){
+   
+   .container-input-search{
+      width: 65vw;
+   }
+
+   .footer > p{
+      font-size: 4vw;
+   }
+}
+
+@media screen and (max-width:400px){
+
+   .container-input-search{
+      width: 70vw;
+   }
+
+   .food-image{
+      width: 170px;
+   }
+
+}
+
+
+@media screen and (max-width:350px){
+   .food-card{
+      min-width:75vw;
+   }
+
+   .footer > p{
+      font-size: 4.15vw;
+   }
+}

@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
+
+*{
+   padding: 0;
+   margin: 0;
+   box-sizing: border-box;
+}
+
+body{
+   background-color: #1d9ad4;
+   min-height: 100vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-size: 1rem;
+   font-family: 'Poppins',sans-serif;
+}
+
+a{
+   text-decoration: none;
+}
+
+img{
+   width: 100%;
+}
+
+/* warning message */
+.warnig-message{
+   color:red;
+   background-color:#FADBD8;
+   padding:5px;
+   margin-top:10px;
+}
+
+.login-container{
+   min-height: 320px;
+   width: 445px;
+   border-radius: 7.5px;
+   background-color: #ffffff;
+   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+   transition: 250ms ease;
+   display: flex;
+   flex-direction: column;
+   flex-wrap: wrap;
+   justify-content: flex-start;
+   align-items: flex-start;
+}
+
+.login-container > h1{
+   margin: 15px;
+}
+
+.login-container > form {
+   border-top: 1px solid #a3a3a3;
+   margin: 7.5px 15px;
+   padding: 5px; 
+}
+
+.btn-submit{
+   margin-top:5px;
+   border: none;
+   outline: none;
+   background-color: #000000;
+   color: #ffffff;
+   height: 40px;
+   width: 100%;
+   cursor:not-allowed;
+   font-size: 1rem;
+}
+
+.btn-pointer{cursor: pointer;}
+
+
+.login-container .tn-submit{
+   margin-top: 25px;
+}
+
+#p-login{
+   text-align: center;
+   align-self:center;
+   margin: 12.75px 0;
+   font-size: 1.1rem;
+}
+
+#login{
+   color: #202020;
+   cursor: pointer;
+}
+
+#login:hover{
+   color: #3d3d3d;
+}
+
+.form{
+   width: 92.5%;
+   padding-right: 10px;
+}
+
+label{
+   font-size: 1.10rem;
+   margin: 1.5px 0;
+}
+
+.container-flex-column{
+   margin: 5px 0;
+   position: relative;
+   display: flex;
+   flex-direction: column;
+}
+
+.input{
+   outline: none;
+   border: none;
+   width: 100%;
+   height: 38px;
+   padding: 5px 7.5px;
+   font-size: 1rem;
+   box-shadow: 0px 0.25px 1px 1px #dbdbdb;
+}
+
+#eye-password{
+   position: absolute;
+   color: #a3a3a3;
+   bottom: 10px;
+   right: 10px;
+   cursor: pointer;
+}
+
+#eye-password:hover{
+   color: #000000;
+}
+
+#upload_image{
+   height: 60px;
+   position: relative;
+   margin: 2.5px 0;
+   visibility: hidden;
+   padding: 10px 0;
+}
+
+#upload_image::before{
+   position: absolute;
+   z-index: 1;
+   top: 13px;
+   visibility: visible;
+   content: 'Select image';
+   padding: 13.25px 15px; 
+   word-wrap: break-word;
+   background-color: #000000;
+   color: #eeeeee;
+   font-size: 1rem;
+   border-radius: 5px;
+   cursor: pointer;
+}
+
+#filename{
+   position: absolute;
+   overflow: hidden;
+   top: 8px;
+   right: 0;
+   width: 255px;
+   height: 70px;
+   padding: 0px 2.5px;
+   font-weight: 500;
+   font-size: 0.95rem;
+   z-index: 1;
+   display: flex;
+   align-items: center;
+   /* border: 1px solid red; */
+ } 
+
+ #username_error,
+ #email_address_error,
+ #password_error{
+    color: #f7270b;
+ }
+
+ .profile-icon-container{
+   background-color: #ffffff;
+   position: absolute;
+   top: 20px;
+   left: 80px;
+   width: 105px;
+   height: 105px;
+   border-radius: 50%;
+   background-image:url('https://cdn.pixabay.com/photo/2016/10/22/17/46/mountains-1761292_960_720.jpg');
+   background-repeat: no-repeat;
+   background-size: cover;
+   background-position:center;
+}
+
+.profile-icon-container>i{font-size: 2.25rem;color: #7c7c7c;} 
