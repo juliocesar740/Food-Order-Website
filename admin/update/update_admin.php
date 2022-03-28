@@ -2,9 +2,9 @@
 
 use app\database\tables\Admin;
 
+
 require_once '../../vendor/autoload.php';
-require_once './functions.php';
-require_once '../constants.php';
+require_once '../../constants.php';
 
 session_start();
 
@@ -19,48 +19,49 @@ $admin = new Admin([
    'db_password' => $_ENV['DB_PASSWORD']
 ]);
 
-$register_admin_error = $_SESSION['register_admin_error'] ?? null;
-
-if($register_admin_error){
-   unset($_SESSION['register_admin_error']);
-}
-
 $admin_name = $_SESSION['admin_name'] ?? null;
 
 if (!$admin_name) {
-   require_once './partials/403_page.php';
+   require_once '../partials/403_page.php';
    exit;
 }
 
-if (isset($_POST['fullname']) && isset($_POST['password'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-   $fullname = filter_input(INPUT_POST, 'fullname', FILTER_SANITIZE_STRING);
-   $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+   if (isset($_GET['admin_id'])) {
 
-   if (checkAdminRegistration($fullname, $password)) {
+      $admin_id = $_GET['admin_id'];
+      $admin_values = $admin->fetchSingleAdmin($admin_id) ?? null;
 
-      $password = password_hash(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING), PASSWORD_DEFAULT);
-
-      $admin_insert = $admin->insertAdmin(['name' => $fullname, 'password' => $password]);
-
-      if (!$admin_insert) {
-         echo 'Error in trying to insert a row to the admin table';
-         exit;
-      } else {
-         $_SESSION['admin_added'] = 'A new administrator has been added';
-         header('Location:./manage_admin.php');
+      if (!$admin_values) {
+         echo '<b>Database error</b>';
          exit;
       }
-   } 
-   else {
-      $_SESSION['register_admin_error'] = 'name or password incorrect.Try again';
-      header('Location: /admin/add_admin.php');
+   } else {
+      echo "<b>Admin's id needed to go on with the update of the order in the database</b>";
+      exit;
+   }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['fullname'] && $_POST['password']) {
+
+   $fullname = filter_input(INPUT_POST, 'fullname', FILTER_SANITIZE_STRING);
+   $password = password_hash(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING), PASSWORD_DEFAULT);
+   $admin_id = filter_input(INPUT_POST, 'admin_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+   $admin_update = $admin->updateAdmin(['name' => $fullname, 'password' => $password], $admin_id);
+
+   if (!$admin_update) {
+      echo 'Error in trying to insert a row to the admin table';
+      exit;
+   } else {
+      $_SESSION['admin_updated'] = "The adminstrator {$admin_id} has been updated";
+      header('Location:../manage_admin.php');
       exit;
    }
 }
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,32 +71,36 @@ if (isset($_POST['fullname']) && isset($_POST['password'])) {
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Restaurant Website</title>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-   <link rel="stylesheet" href="./css/admin.css">
+   <link rel="stylesheet" href="../css/admin.css">
 </head>
 
-<?php require_once './partials/header.php' ?>
+<?php require_once '../partials/header.php' ?>
 
 <body class="overflow-y-scroll">
    <div class="main">
       <div class="form-container">
-         <h2>Add Admin</h2>
-         <a href="./manage_admin.php" class="btn-add">Manage Admin</a>
+         <h2>Update Admin</h2>
+         <a href="../manage_admin.php" class="btn-add">Manage Admin</a>
          <form class="form" action="" method="post">
             <div class="container-flex-column">
                <label for="fullname">Full Name</label>
-               <input type="text" class="input" name="fullname" id="fullname" placeholder="Enter full name">
+               <input type="text" class="input" name="fullname" id="fullname" placeholder="Enter full name" value="<?php echo $admin_values['name'] ?>">
                <p style="color: red;" id="username_error"></p>
             </div>
             <div class="container-flex-column">
                <label for="Password">Password</label>
-               <input type="password" class="input" name="password" id="password" placeholder="Enter password">
+               <input type="password" class="input" name="password" id="password" placeholder="Enter new password">
                <i class="fas fa-eye" id="eye-password"></i>
                <p style="color: red;" id="password_error"></p>
             </div>
-            <button style="cursor: not-allowed;" type="submit" class="btn-submit" data-username_check="" data-password_check="" disabled>Submit</button>
+            <input type="hidden" name="admin_id" value="<?php echo $admin_id ?>">
+            <button style="cursor: not-allowed;" type="submit" class="btn-submit" data-username_check="<?php if (isset($admin_values['name'])) {
+                                                                                                            echo 'true';
+                                                                                                         } ?>" data-password_check="" disabled>Submit</button>
          </form>
       </div>
    </div>
+   <?php require_once '../partials/sidebar.php' ?>
    <script>
       const eye_password = document.querySelector("#eye-password");
       const btn_submit = document.querySelector('.btn-submit');
@@ -158,7 +163,7 @@ if (isset($_POST['fullname']) && isset($_POST['password'])) {
             }
 
          } else if (!pattern_lowercase.test(this.value)) {
-            document.querySelector('#password_error').textContent = 'The password should have at least 2 lowercase letters';
+            document.querySelector('#password_error').textContent = 'The password should have at least 2 lowercase characters';
             btn_submit.dataset.password_check = 'false';
 
             if (!checkBtnSubmit(btn_submit)) {
@@ -166,7 +171,7 @@ if (isset($_POST['fullname']) && isset($_POST['password'])) {
                btn_submit.style.cursor = 'not-allowed';
             }
          } else if (!pattern_uppercase.test(this.value)) {
-            document.querySelector('#password_error').textContent = 'The password should have at least 2 uppercase letters';
+            document.querySelector('#password_error').textContent = 'The password should have at least 2 uppercase characters';
             btn_submit.dataset.password_check = 'false';
 
             if (!checkBtnSubmit(btn_submit)) {
@@ -219,7 +224,7 @@ if (isset($_POST['fullname']) && isset($_POST['password'])) {
 
          }, 0);
 
-         if (match === special_chars || match > special_chars) {
+         if (match === special_chars) {
             return true;
          } else {
             return false;
@@ -234,5 +239,14 @@ if (isset($_POST['fullname']) && isset($_POST['password'])) {
             return false;
          }
       }
+
+      document.querySelector('.close-button').addEventListener('click', function() {
+         document.querySelector('.sidebar-nav').classList.toggle('sidebar-nav-active');
+      });
+
+      document.querySelector('#icon-bars').addEventListener('click', function() {
+         document.querySelector('.sidebar-nav').classList.toggle('sidebar-nav-active');
+      });
+      
    </script>
 </body>

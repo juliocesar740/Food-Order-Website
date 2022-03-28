@@ -3,7 +3,7 @@
 use app\database\tables\Category;
 use app\database\tables\Food;
 
-require_once '../../vendor/autoload.php';
+require_once '../vendor/autoload.php';
 require_once '../constants.php';
 
 session_start();
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['food_id_delete'])) {
          <h2>Manage Food</h2>
          <div class="container-flex-row">
             <a class="btn-add" href="./add_food.php">Add Food</a>
-            <form action="" method="get" style="margin-right: 20px;">
+            <form action="" method="get" class="form-search">
                <div class="container-input-search">
                   <input type="text" class="input-search" name="search_food" id="search_food" placeholder="Search food" value="<?php if (isset($search_food)) {
                                                                                                                                     echo $search_food;
@@ -205,6 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['food_id_delete'])) {
       <p class="delete-message"><?php echo $food_deleted_message ?></p>
 
    <?php endif; ?>
+   <?php require_once './partials/sidebar.php' ?>
    <script>
       const add_message = document.querySelector('.add-message') || null;
       const update_message = document.querySelector('.update-message') || null;
@@ -233,6 +234,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['food_id_delete'])) {
             delete_message.classList.toggle('delete-message-active');
          }, 3500);
       }
+      
+      document.querySelector('.close-button').addEventListener('click', function() {
+         document.querySelector('.sidebar-nav').classList.toggle('sidebar-nav-active');
+      });
+
+      document.querySelector('#icon-bars').addEventListener('click', function() {
+         document.querySelector('.sidebar-nav').classList.toggle('sidebar-nav-active');
+      });
+
    </script>
 </body>
 

@@ -2,7 +2,7 @@
 
 use app\database\tables\Order;
 
-require_once '../../vendor/autoload.php';
+require_once '../vendor/autoload.php';
 require_once '../constants.php';
 
 session_start();
@@ -138,6 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['order_id_delete'])) {
       <p class="delete-message"><?php echo $order_deleted_message ?></p>
 
    <?php endif; ?>
+   <?php require_once './partials/sidebar.php' ?>
    <script>
       const add_message = document.querySelector('.add-message') || null;
       const update_message = document.querySelector('.update-message') || null;
@@ -166,6 +167,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['order_id_delete'])) {
             delete_message.classList.toggle('delete-message-active');
          }, 3500);
       }
+
+      document.querySelector('.close-button').addEventListener('click', function() {
+         document.querySelector('.sidebar-nav').classList.toggle('sidebar-nav-active');
+      });
+
+      document.querySelector('#icon-bars').addEventListener('click', function() {
+         document.querySelector('.sidebar-nav').classList.toggle('sidebar-nav-active');
+      });
+      
    </script>
 </body>
 

@@ -15,6 +15,7 @@
    <div class="header">
       <div class="nav">
          <div class="container-flex-row">
+            <i class="fas fa-bars" id="icon-bars"></i>
             <div class="logo">
                <i class="fas fa-utensils" style="font-size: 1.35rem;color: #eb4c0e;"></i>
                <h3 style="display: inline-block;color: #eb4c0e;">Awesome Foods</h3>
@@ -25,7 +26,6 @@
                <li><a href="./foods.php">Foods</a></li>
                <li><a href="./contact.php">Contact</a></li>
             </ul>
-            <i class="fas fa-bars" id="icon-bars"></i>
          </div>
       </div>
    </div>

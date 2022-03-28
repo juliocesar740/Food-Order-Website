@@ -2,7 +2,7 @@
 
 use app\database\tables\Admin as Admin;
 
-require_once '../../vendor/autoload.php';
+require_once '../vendor/autoload.php';
 require_once '../constants.php';
 
 session_start();
@@ -83,7 +83,7 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_id_delete']
          <h2>Manage Admin</h2>
          <div class="container-flex-row">
             <a class="btn-add" href="./add_admin.php">Add Admin</a>
-            <form action="" method="get" style="margin-right: 20px;">
+            <form action="" method="get" class="form-search">
                <div class="container-input-search">
                   <input type="text" class="input-search" name="search_admin" id="search_admin" placeholder="Search admin" value="<?php if (isset($search_admin)) {echo $search_admin;} ?>">
                   <button type="submit"><i style="font-size:1.05rem;" class="fas fa-search"></i></button>
@@ -158,6 +158,7 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_id_delete']
       <p class="delete-message"><?php echo $admin_deleted_message ?></p>
 
    <?php endif; ?>
+   <?php require_once './partials/sidebar.php' ?>
    <script>
       const add_message = document.querySelector('.add-message') || null;
       const update_message = document.querySelector('.update-message') || null;
@@ -186,6 +187,15 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_id_delete']
             delete_message.classList.toggle('delete-message-active');
          }, 3500);
       }
+
+      document.querySelector('.close-button').addEventListener('click', function() {
+         document.querySelector('.sidebar-nav').classList.toggle('sidebar-nav-active');
+      });
+
+      document.querySelector('#icon-bars').addEventListener('click', function() {
+         document.querySelector('.sidebar-nav').classList.toggle('sidebar-nav-active');
+      });
+
    </script>
 </body>
 

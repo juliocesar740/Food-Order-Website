@@ -2,7 +2,7 @@
 
 use app\database\tables\Category as Category;
 
-require_once '../../vendor/autoload.php';
+require_once '../vendor/autoload.php';
 require_once '../constants.php';
 
 session_start();
@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search_category'])) {
          <h2>Manage Category</h2>
          <div class="container-flex-row">
             <a class="btn-add" href="./add_category.php">Add Category</a>
-            <form action="" method="get" style="margin-right: 20px;">
+            <form action="" method="get" class="form-search">
                <div class="container-input-search">
                   <input type="text" class="input-search" name="search_category" id="search_category" placeholder="Search Category" value="<?php if (isset($search_category)) {echo $search_category;} ?>">
                   <button type="submit"><i style="font-size:1.05rem;" class="fas fa-search"></i></button>
@@ -173,6 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search_category'])) {
       <p class="delete-message"><?php echo $category_deleted_message ?></p>
 
    <?php endif; ?>
+   <?php require_once './partials/sidebar.php' ?>
    <script>
       const add_message = document.querySelector('.add-message') || null;
       const update_message = document.querySelector('.update-message') || null;
@@ -201,6 +202,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search_category'])) {
             delete_message.classList.toggle('delete-message-active');
          }, 3500);
       }
+
+      document.querySelector('.close-button').addEventListener('click', function() {
+         document.querySelector('.sidebar-nav').classList.toggle('sidebar-nav-active');
+      });
+
+      document.querySelector('#icon-bars').addEventListener('click', function() {
+         document.querySelector('.sidebar-nav').classList.toggle('sidebar-nav-active');
+      });
+
    </script>
 </body>
 

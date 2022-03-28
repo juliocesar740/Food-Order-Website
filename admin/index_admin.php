@@ -5,7 +5,7 @@ use app\database\tables\Category;
 use app\database\tables\Food;
 use app\database\tables\Order;
 
-require_once '../../vendor/autoload.php';
+require_once '../vendor/autoload.php';
 require_once '../constants.php';
 
 session_start();
@@ -48,6 +48,7 @@ if (!$admin_name) {
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Admin Login</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
    <link rel="stylesheet" href="./css/admin.css">
 </head>
 <?php require_once './partials/header.php' ?>
@@ -133,12 +134,27 @@ if (!$admin_name) {
       ?>
 
    <?php endif; ?>
+   <?php require_once './partials/sidebar.php' ?>
    <script>
-      document.querySelector('.success-message').classList.toggle('success-message-active');
+      
+      const success_message = document.querySelector('.success-message') || null;
 
-      setTimeout(() => {
+      if (success_message) {
          document.querySelector('.success-message').classList.toggle('success-message-active');
-      }, 3500);
+
+         setTimeout(() => {
+            document.querySelector('.success-message').classList.toggle('success-message-active');
+         }, 3500);
+      }
+
+      document.querySelector('.close-button').addEventListener('click', function() {
+         document.querySelector('.sidebar-nav').classList.toggle('sidebar-nav-active');
+      });
+
+      document.querySelector('#icon-bars').addEventListener('click', function() {
+         document.querySelector('.sidebar-nav').classList.toggle('sidebar-nav-active');
+      });
+
    </script>
 </body>
 

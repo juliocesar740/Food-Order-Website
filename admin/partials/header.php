@@ -1,6 +1,7 @@
 <div class="header">
    <div class="nav">
       <ul>
+         <i class="fas fa-bars" id="icon-bars" ></i>
          <li><a href="/admin/index_admin.php" class="admin-nav-links">Dashboard</a></li>
          <li><a href="/admin/manage_admin.php" class="admin-nav-links">Admin</a></li>
          <li><a href="/admin/manage_category.php" class="admin-nav-links">Category</a></li>
