@@ -19,18 +19,6 @@ $admin = new Admin([
    'db_password' => $_ENV['DB_PASSWORD']
 ]);
 
-$register_admin_error = $_SESSION['register_admin_error'] ?? null;
-
-if($register_admin_error){
-   unset($_SESSION['register_admin_error']);
-}
-
-$admin_name = $_SESSION['admin_name'] ?? null;
-
-if (!$admin_name) {
-   require_once './partials/403_page.php';
-   exit;
-}
 
 if (isset($_POST['fullname']) && isset($_POST['password'])) {
 
@@ -46,13 +34,24 @@ if (isset($_POST['fullname']) && isset($_POST['password'])) {
       if (!$admin_insert) {
          echo 'Error in trying to insert a row to the admin table';
          exit;
-      } else {
+      } 
+      else {
+         
+         unset($_SESSION['login_error']);
+
+         session_regenerate_id();
+   
+         $_SESSION['admin_name'] = $fullname;
+         $_SESSION['login_message'] = "Welcome {$_SESSION['admin_name']}";
+   
+         header('Location: ./index_admin.php');
+         exit();
+
          $_SESSION['admin_added'] = 'A new administrator has been added';
          header('Location:./manage_admin.php');
          exit;
       }
-   } 
-   else {
+   } else {
       $_SESSION['register_admin_error'] = 'name or password incorrect.Try again';
       header('Location: /admin/add_admin.php');
       exit;
@@ -70,16 +69,13 @@ if (isset($_POST['fullname']) && isset($_POST['password'])) {
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Restaurant Website</title>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-   <link rel="stylesheet" href="./css/admin.css">
+   <link rel="stylesheet" href="./css/login.css">
 </head>
 
-<?php require_once './partials/header.php' ?>
-
-<body class="overflow-y-scroll">
+<body>
    <div class="main">
-      <div class="form-container">
-         <h2>Add Admin</h2>
-         <a href="./manage_admin.php" class="btn-add">Manage Admin</a>
+      <div class="login-container">
+         <h1>Create admin</h1>
          <form class="form" action="" method="post">
             <div class="container-flex-column">
                <label for="fullname">Full Name</label>
@@ -88,17 +84,17 @@ if (isset($_POST['fullname']) && isset($_POST['password'])) {
             </div>
             <div class="container-flex-column">
                <label for="Password">Password</label>
-               <input type="password" class="input" name="password" id="password" placeholder="Enter password">
-               <i class="fas fa-eye" id="eye-password"></i>
+               <div style="position:relative;">
+                  <input type="password" class="input" name="password" id="password" placeholder="Enter password">
+                  <i class="fas fa-eye" id="eye-password"></i>
+               </div>
                <p style="color: red;" id="password_error"></p>
             </div>
             <button style="cursor: not-allowed;" type="submit" class="btn-submit" data-username_check="" data-password_check="" disabled>Submit</button>
          </form>
       </div>
    </div>
-   <?php require_once './partials/sidebar.php' ?>
    <script>
-
       const eye_password = document.querySelector("#eye-password");
       const btn_submit = document.querySelector('.btn-submit');
 
@@ -244,6 +240,5 @@ if (isset($_POST['fullname']) && isset($_POST['password'])) {
       document.querySelector('#icon-bars').addEventListener('click', function() {
          document.querySelector('.sidebar-nav').classList.toggle('sidebar-nav-active');
       });
-
    </script>
 </body>

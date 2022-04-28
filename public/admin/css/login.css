@@ -34,7 +34,7 @@ img{
 
 .login-container{
    min-height: 320px;
-   width: 445px;
+   width: 500px;
    border-radius: 7.5px;
    background-color: #ffffff;
    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -57,7 +57,7 @@ img{
 }
 
 .btn-submit{
-   margin-top:5px;
+   margin-top:10px;
    border: none;
    outline: none;
    background-color: #000000;

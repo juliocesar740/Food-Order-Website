@@ -3,7 +3,7 @@
 use app\database\tables\Admin;
 
 require_once '../../../vendor/autoload.php';
-require_once '../../constants.php';
+require_once '../../../constants.php';
 
 session_start();
 
@@ -99,6 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['fullname'] && $_POST['passw
          </form>
       </div>
    </div>
+   <?php require_once '../partials/sidebar.php' ?>
    <script>
       const eye_password = document.querySelector("#eye-password");
       const btn_submit = document.querySelector('.btn-submit');
@@ -237,5 +238,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['fullname'] && $_POST['passw
             return false;
          }
       }
+
+      document.querySelector('.close-button').addEventListener('click', function() {
+         document.querySelector('.sidebar-nav').classList.toggle('sidebar-nav-active');
+      });
+
+      document.querySelector('#icon-bars').addEventListener('click', function() {
+         document.querySelector('.sidebar-nav').classList.toggle('sidebar-nav-active');
+      });
+      
    </script>
 </body>

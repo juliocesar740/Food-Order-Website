@@ -6,7 +6,7 @@ use app\database\tables\Food;
 use app\database\tables\Order;
 
 require_once '../../vendor/autoload.php';
-require_once '../constants.php';
+require_once '../../constants.php';
 
 session_start();
 
@@ -29,7 +29,7 @@ $food = new Food($arr_database);
 
 $order = new Order($arr_database);
 
-$arr_order = $order->fetchOrder(10);
+$arr_order = $order->fetchOrder() ?? null;
 
 $admin_name = $_SESSION['admin_name'] ?? null;
 
@@ -48,6 +48,7 @@ if (!$admin_name) {
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Admin Login</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
    <link rel="stylesheet" href="./css/admin.css">
 </head>
 <?php require_once './partials/header.php' ?>
@@ -79,7 +80,7 @@ if (!$admin_name) {
                <p>Orders</p>
             </div>
             <div class="data-card">
-               <p><?php echo '$' . $order->sumTotal() ?></p>
+               <p><?php echo '$' . ($order->sumTotal() ?? '0.00') ?></p>
                <p>Revenue Generated</p>
             </div>
          </div>
@@ -88,7 +89,7 @@ if (!$admin_name) {
                <h2 style="color: #0881f1;">Recent Orders</h2>
                <a href="./manage_order.php" class="btn-add">View all</a>
             </div>
-            <?php if (isset($arr_order)) : ?>
+            <?php if ($arr_order) : ?>
                <table class="dashboard-table">
                   <tr>
                      <td><b>Customer name</b></td>
@@ -96,10 +97,10 @@ if (!$admin_name) {
                      <td><b>Price</b></td>
                      <td><b>status</b></td>
                   </tr>
+
                   <?php foreach ($arr_order as $key => $value) : ?>
 
                      <tr>
-
                         <td><?php echo $value['customer_name'] ?></td>
                         <td><?php echo $value['food'] ?></td>
                         <td><?php echo $value['price'] ?></td>
@@ -133,12 +134,27 @@ if (!$admin_name) {
       ?>
 
    <?php endif; ?>
+   <?php require_once './partials/sidebar.php' ?>
    <script>
-      document.querySelector('.success-message').classList.toggle('success-message-active');
+      
+      const success_message = document.querySelector('.success-message') || null;
 
-      setTimeout(() => {
+      if (success_message) {
          document.querySelector('.success-message').classList.toggle('success-message-active');
-      }, 3500);
+
+         setTimeout(() => {
+            document.querySelector('.success-message').classList.toggle('success-message-active');
+         }, 3500);
+      }
+
+      document.querySelector('.close-button').addEventListener('click', function() {
+         document.querySelector('.sidebar-nav').classList.toggle('sidebar-nav-active');
+      });
+
+      document.querySelector('#icon-bars').addEventListener('click', function() {
+         document.querySelector('.sidebar-nav').classList.toggle('sidebar-nav-active');
+      });
+
    </script>
 </body>
 

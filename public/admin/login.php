@@ -3,8 +3,8 @@
 use app\database\tables\Admin;
 
 require_once '../../vendor/autoload.php';
-require_once './functions.php';
-require_once '../constants.php';
+require_once '../../functions.php';
+require_once '../../constants.php';
 
 session_start();
 
@@ -40,7 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['fullname']) && isset(
 
       header('Location: ./index_admin.php');
       exit();
-   } else {
+   } 
+   else {
       $_SESSION['login_error'] = 'Name or password not correct. Please try again';
       header('Location:/admin/login.php');
    }

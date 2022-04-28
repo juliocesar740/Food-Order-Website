@@ -6,7 +6,7 @@ use app\database\tables\Food;
 use app\database\tables\Order as Order;
 
 require_once '../vendor/autoload.php';
-require_once './constants.php';
+require_once '../constants.php';
 
 // load environment variables
 $dotenv = Dotenv\Dotenv::createImmutable($ROOT_PATH);
@@ -33,8 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['food_id'])) {
       header('Location:./');
       exit;
    }
-} 
-elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['image'], $_POST['food_name'], $_POST['price'], $_POST['quantity'], $_POST['customer_name'], $_POST['customer_email'], $_POST['customer_address'])) {
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['image'], $_POST['food_name'], $_POST['price'], $_POST['quantity'], $_POST['customer_name'], $_POST['customer_email'], $_POST['customer_address'])) {
 
    $errors = array();
    $image = filter_input(INPUT_POST, 'image', FILTER_SANITIZE_STRING);
@@ -107,6 +106,7 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['image'], $_POST['
    <div class="header">
       <div class="nav">
          <div class="container-flex-row">
+            <i class="fas fa-bars" id="icon-bars"></i>
             <div class="logo">
                <i class="fas fa-utensils" style="font-size: 1.35rem;color: #eb4c0e;"></i>
                <h3 style="display: inline-block;color: #eb4c0e;">Awesome Foods</h3>
@@ -117,7 +117,6 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['image'], $_POST['
                <li><a href="./foods.php">Foods</a></li>
                <li><a href="./contact.php">Contact</a></li>
             </ul>
-            <i class="fas fa-bars" id="icon-bars"></i>
          </div>
       </div>
    </div>
@@ -170,23 +169,30 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['image'], $_POST['
 
                      <?php endif; ?>
 
-                     <label for="quantity">Quantity</label>
+                     <div class="container-flex-column">
 
-                     <?php if (isset($errors['quantity'])) : ?>
-                        <input class="input" type="number" name="quantity" id="quantity" placeholder="Enter quantity" min="1">
-                        <p class="warnig-message"><?php echo $errors['quantity'] ?></p>
-                     <?php else : ?>
-                        <input class="input" type="number" name="quantity" id="quantity" placeholder="Enter quantity" min="1" value="<?php if (isset($quantity)) {
-                                                                                                                                          echo $quantity;
-                                                                                                                                       } ?>">
-                     <?php endif; ?>
+                        <label for="quantity">Quantity</label>
 
+                        <?php if (isset($errors['quantity'])) : ?>
+
+                           <input class="input" type="number" name="quantity" id="quantity" placeholder="Enter quantity" min="1">
+                           <p class="warnig-message"><?php echo $errors['quantity'] ?></p>
+
+                        <?php else : ?>
+                           <input class="input" type="number" name="quantity" id="quantity" placeholder="Enter quantity" min="1" value="<?php if (isset($quantity)) {
+                                                                                                                                             echo $quantity;
+                                                                                                                                          } ?>">
+                        <?php endif; ?>
+
+                     </div>
                   </div>
                </div>
             </div>
+            <div class="container-flex-column" id="input-quantity">
+
+            </div>
             <div class="container-flex-column">
                <label for="customer_name">Your Name</label>
-
                <?php if (isset($errors['customer_name'])) : ?>
                   <input class="input" type="text" name="customer_name" id="customer_name" placeholder="Enter your name">
                   <p class="warnig-message"><?php echo $errors['customer_name'] ?></p>
@@ -197,6 +203,7 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['image'], $_POST['
                <?php endif; ?>
 
             </div>
+
             <div class="container-flex-column">
                <label for="customer_email">Your Email</label>
 
