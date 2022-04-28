@@ -198,9 +198,25 @@ li {
    gap: 25px;
 }
 
-.nav ul a {
+.header-links{
+   position: relative;
    color: #eb4c0e;
    font-weight: 500;
+}
+
+.header-links::before{
+   content: "";
+   position: absolute;
+   border: 1px solid #eb4c0e;
+   width: 1%;
+   bottom: 0;
+   transition: 250ms ease-in;
+   opacity: 0;
+}
+
+.header-links:hover.header-links::before {
+   opacity: 1;
+   width: 100%;
 }
 
 #icon-bars{
@@ -457,6 +473,9 @@ li {
    }
    .nav ul{
       display: none;
+   }
+   .header-links::before{
+      border: 1px solid #ffffff;
    }
    #icon-bars{
       display: inline-block;

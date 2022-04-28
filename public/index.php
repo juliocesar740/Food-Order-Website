@@ -55,10 +55,10 @@ if (isset($order_success_message)) {
                <h3 style="display: inline-block;color: #eb4c0e;">Awesome Foods</h3>
             </div>
             <ul>
-               <li><a href="./index.php">Home</a></li>
-               <li><a href="./categories.php">Categories</a></li>
-               <li><a href="./foods.php">Foods</a></li>
-               <li><a href="./contact.php">Contact</a></li>
+               <li><a class="header-links" href="./index.php">Home</a></li>
+               <li><a class="header-links" href="./categories.php">Categories</a></li>
+               <li><a class="header-links" href="./foods.php">Foods</a></li>
+               <li><a class="header-links" href="./contact.php">Contact</a></li>
             </ul>
          </div>
       </div>
@@ -127,10 +127,10 @@ if (isset($order_success_message)) {
       </div>
       <div class="sidebar-nav">
          <ul>
-            <li><a href="./index.php">Home</a></li>
-            <li><a href="./categories.php">Categories</a></li>
-            <li><a href="./foods.php">Foods</a></li>
-            <li><a href="./contact.php">Contact</a></li>
+            <li><a class="header-links" href="./index.php">Home</a></li>
+            <li><a class="header-links" href="./categories.php">Categories</a></li>
+            <li><a class="header-links" href="./foods.php">Foods</a></li>
+            <li><a class="header-links" href="./contact.php">Contact</a></li>
          </ul>
          <div class="close-button">x</div>
       </div>
