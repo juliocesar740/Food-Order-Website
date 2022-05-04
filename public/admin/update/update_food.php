@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $image_upload = new ImageUpload($_FILES['image_upload'], 'food');
 
       if (!$image_upload->upload($_FILES['image_upload'])) {
-         echo 'This image already exists or other error happened in the image';
+         echo 'Some error happened in the image';
          exit;
       }
    }
