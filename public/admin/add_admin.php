@@ -34,12 +34,12 @@ if (!$admin_name) {
 
 if (isset($_POST['fullname']) && isset($_POST['password'])) {
 
-   $fullname = filter_input(INPUT_POST, 'fullname', FILTER_SANITIZE_STRING);
-   $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+   $fullname = filter_input(INPUT_POST, 'fullname', FILTER_SANITIZE_SPECIAL_CHARS );
+   $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS );
 
    if (checkAdminRegistration($fullname, $password)) {
 
-      $password = password_hash(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING), PASSWORD_DEFAULT);
+      $password = password_hash($password, PASSWORD_DEFAULT);
 
       $admin_insert = $admin->insertAdmin(['name' => $fullname, 'password' => $password]);
 

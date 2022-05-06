@@ -50,13 +50,13 @@ if (!$admin_name) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search_food'])) {
 
-   $search_food = filter_input(INPUT_GET, 'search_food', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+   $search_food = filter_input(INPUT_GET, 'search_food', FILTER_SANITIZE_SPECIAL_CHARS);
    $arr_food = $food->searchFood($search_food);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['food_id_delete'])) {
 
-   $food_id = filter_input(INPUT_POST, 'food_id_delete', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+   $food_id = filter_input(INPUT_POST, 'food_id_delete', FILTER_SANITIZE_SPECIAL_CHARS);
 
    if (!$food->deleteSingleFood($food_id)) {
       echo 'Error in trying to delete a row from the admin table';

@@ -64,15 +64,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    }
 
    $errors = array();
-   $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
-   $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
-   $price = filter_input(INPUT_POST, 'price', FILTER_SANITIZE_STRING);
-   $image = filter_input(INPUT_POST, 'image', FILTER_SANITIZE_STRING);
-   $active = filter_input(INPUT_POST, 'active', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-   $food_category = $category->fetchSingleCategoryByTitle(filter_input(INPUT_POST, 'category', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+   $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
+   $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_SPECIAL_CHARS);
+   $price = filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_FLOAT );
+   $image = filter_input(INPUT_POST, 'image', FILTER_SANITIZE_SPECIAL_CHARS);
+   $active = filter_input(INPUT_POST, 'active', FILTER_SANITIZE_SPECIAL_CHARS);
+   $food_category = $category->fetchSingleCategoryByTitle(filter_input(INPUT_POST, 'category', FILTER_SANITIZE_SPECIAL_CHARS));
    $category_id = $food_category ['category_id'] ?? 'error';
    $category_title = $food_category ['title'] ?? 'error';
-   $food_id = filter_input(INPUT_POST, 'food_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+   $food_id = filter_input(INPUT_POST, 'food_id', FILTER_SANITIZE_SPECIAL_CHARS);
 
    $food_errors = $food->checkFoodErrors(
       [

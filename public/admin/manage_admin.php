@@ -45,12 +45,12 @@ if (!$admin_name) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search_admin'])) {
 
-   $search_admin = filter_input(INPUT_GET, 'search_admin', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+   $search_admin = filter_input(INPUT_GET, 'search_admin', FILTER_SANITIZE_SPECIAL_CHARS);
    $arr_admin = $admin->searchAdmin($search_admin);
 } 
 elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_id_delete'])) {
 
-   $admin_id = filter_input(INPUT_POST, 'admin_id_delete', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+   $admin_id = filter_input(INPUT_POST, 'admin_id_delete', FILTER_SANITIZE_SPECIAL_CHARS);
 
    if (!$admin->deleteSingleAdmin($admin_id)) {
       echo 'Error in trying to delete a row from the admin table';

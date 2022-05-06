@@ -45,7 +45,7 @@ if (!$admin_name) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['order_id_delete'])) {
 
-   $order_id = filter_input(INPUT_POST, 'order_id_delete', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+   $order_id = filter_input(INPUT_POST, 'order_id_delete', FILTER_SANITIZE_SPECIAL_CHARS);
 
    if (!$order->deleteSingleOrder($order_id)) {
       echo 'Error in trying to delete a row from the admin table';

@@ -56,10 +56,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    }
 
    $errors = array();
-   $image = filter_input(INPUT_POST, 'image', FILTER_SANITIZE_STRING);
-   $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
-   $active = filter_input(INPUT_POST, 'active', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-   $category_id = filter_input(INPUT_POST, 'category_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+   $image = filter_input(INPUT_POST, 'image', FILTER_SANITIZE_SPECIAL_CHARS);
+   $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
+   $active = filter_input(INPUT_POST, 'active', FILTER_SANITIZE_SPECIAL_CHARS);
+   $category_id = filter_input(INPUT_POST, 'category_id', FILTER_SANITIZE_SPECIAL_CHARS);
 
    $category_errors = $category->checkCategoryErrors(['title' => $title,'active' => $active,]);
 

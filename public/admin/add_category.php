@@ -40,8 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
    }
 
-   $image = filter_input(INPUT_POST, 'image', FILTER_SANITIZE_STRING);
-   $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
+   $image = filter_input(INPUT_POST, 'image', FILTER_SANITIZE_SPECIAL_CHARS);
+   $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
    $active = filter_input(INPUT_POST, 'active', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? null;
 
    $category_errors = $category->checkCategoryErrors(['title' => $title,'active' => $active,]);

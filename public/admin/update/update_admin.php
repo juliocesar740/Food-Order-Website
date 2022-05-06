@@ -44,9 +44,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['fullname'] && $_POST['password']) {
 
-   $fullname = filter_input(INPUT_POST, 'fullname', FILTER_SANITIZE_STRING);
-   $password = password_hash(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING), PASSWORD_DEFAULT);
-   $admin_id = filter_input(INPUT_POST, 'admin_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+   $fullname = filter_input(INPUT_POST, 'fullname', FILTER_SANITIZE_SPECIAL_CHARS);
+   $password = password_hash(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS), PASSWORD_DEFAULT);
+   $admin_id = filter_input(INPUT_POST, 'admin_id', FILTER_SANITIZE_SPECIAL_CHARS);
 
    $admin_update = $admin->updateAdmin(['name' => $fullname, 'password' => $password], $admin_id);
 

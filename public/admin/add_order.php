@@ -28,14 +28,14 @@ if (!$admin_name) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
    $errors = array();
-   $food_name = filter_input(INPUT_POST, 'food_name', FILTER_SANITIZE_STRING);
-   $price = (float) filter_input(INPUT_POST, 'price', FILTER_SANITIZE_STRING);
-   $quantity = (int) filter_input(INPUT_POST, 'quantity', FILTER_SANITIZE_STRING);
+   $food_name = filter_input(INPUT_POST, 'food_name', FILTER_SANITIZE_SPECIAL_CHARS);
+   $price = (float) filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_FLOAT);
+   $quantity = (int) filter_input(INPUT_POST, 'quantity', FILTER_SANITIZE_NUMBER_INT);
    $total = (float) $price * $quantity;
-   $status = filter_input(INPUT_POST, 'status', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-   $customer_name = filter_input(INPUT_POST, 'customer_name', FILTER_SANITIZE_STRING);
+   $status = filter_input(INPUT_POST, 'status', FILTER_SANITIZE_SPECIAL_CHARS);
+   $customer_name = filter_input(INPUT_POST, 'customer_name', FILTER_SANITIZE_SPECIAL_CHARS);
    $customer_email = filter_input(INPUT_POST, 'customer_email', FILTER_SANITIZE_EMAIL);
-   $customer_address = filter_input(INPUT_POST, 'customer_address', FILTER_SANITIZE_STRING);
+   $customer_address = filter_input(INPUT_POST, 'customer_address', FILTER_SANITIZE_SPECIAL_CHARS);
 
    $order_errors = $order->checkOrderErrors([
       'food_name' => $food_name,

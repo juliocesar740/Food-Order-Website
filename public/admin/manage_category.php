@@ -46,11 +46,11 @@ if (!$admin_name) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search_category'])) {
 
-   $search_category = filter_input(INPUT_GET, 'search_category', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+   $search_category = filter_input(INPUT_GET, 'search_category', FILTER_SANITIZE_SPECIAL_CHARS);
    $arr_category = $category->searchCategory($search_category);
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['category_id_delete'])) {
 
-   $category_id = filter_input(INPUT_POST, 'category_id_delete', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+   $category_id = filter_input(INPUT_POST, 'category_id_delete', FILTER_SANITIZE_SPECIAL_CHARS);
 
    if (!$category->deleteSingleCategory($category_id)) {
       echo 'Error in trying to delete a row from the admin table';
